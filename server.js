@@ -1,10 +1,17 @@
 //entry point to our backend                 //torun the server type --   npm run server
 
 const express = require('express');                //very basic express server     //bring in express              //we cant use import unless we install babel/typescript. otherwise we use this syntax to bring in modules which is called common js
+const connectDB = require('./config/db');
 
 const app =express();
 
 
+//connect database
+connectDB();
+
+
+//INIT MIDDLEWARE
+app.use(express.json({ extended: false}));                      //to accept jsondata     ,, so nowby doing this we can accept the  body data 
 
 
 app.get('/', (req,res) => res.json({msg: 'Welcome to the contactkeeper json api'}));              //so we can use res.send   or res.json(use because it is a json api)                //now this takes an arrow function with a request and response as params and before that a url
@@ -33,7 +40,13 @@ app.listen(PORT, () => console.log(`BACKEND Server started on port ${PORT}`));  
 
 
 
+
+
 //so lets break all routes in different files    --  different routes 3 of them
 //contacts diff routes
 //users 
 // auth
+
+
+//to add user functunality for adding persons in dataase
+//WE NEED TO HAVE A MODEL FOR EACH RESOURCE    -- SO WE WILL HAVE A CONTACT MODEL AND USER MODEL   {IN MONGODB }
