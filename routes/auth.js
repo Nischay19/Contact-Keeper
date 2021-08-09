@@ -8,6 +8,7 @@ const bcrypt =require('bcryptjs');
 const jwt= require('jsonwebtoken');                                         //we send a string of  jwt to users when they login or sign uo so that tehy can access proected routes
 const config =require('config');                                             //to bring in the jwtsecret in here from the defaultjson
 
+const auth = require('../middleware/auth');
 const { check, validationResult } = require('express-validator/check');
 
 
@@ -24,10 +25,18 @@ const User = require('../models/User');
 
 
 // @route    GET api/auth         
-// @desc     Get the logged in user
-// @access   PRIVATE
-router.get('/', (req, res ) => {   
-    res.send('Get logged in user');    
+// @desc     Get the logged in user               
+// @access   PRIVATE                                                                                 //so this is the private route that we need to protect, everytime we need to protect a route we need to bring in the middleware              
+router.get('/', auth ,async (req, res ) => {                  //as we need to make it a protected route , we jyst pass  the auth  middleware as second parameter
+              //as we include auth in the parameter we tell to go through the middleware, and it runs itself
+    try{
+      const user= await User.findById(req.user.id).select('-password');          //mongoose method that returns promise    --if we send coorrect token then we logged in then the request oject will have a user login attached to it with the current loggedin useres id   //we dont want to return the encrypted password so we do the select()
+      res.json(user);                                                                    
+    } catch(err) { 
+      console.error(err.message);
+      res.status(500).send('server error');
+
+    }//so works when you have been authorized by the middleware that the credentials you entered is correct
           
 }); 
 
@@ -88,8 +97,10 @@ router.post('/', [
       res.status(500).send('server error');      
     }                      
 
-  res.send('Log in User');        
+  // res.send('Log in User');             
 }); 
+
+
 
 
 

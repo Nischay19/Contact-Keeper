@@ -17,6 +17,8 @@ const User = require('../models/User');                      //now we will make 
 
 
 
+
+
 // @route    POST api/users                                                                             //now for eveyry request we are having signatures the above coments   --  the end oit we are hitting on in post request is api/users
 // @desc     REGISTER a user
 // @access   PUBLIC
@@ -34,9 +36,9 @@ router.post('/', [                             //in this [] we put checks on paa
     async (req, res ) => {                                                         //we are doing the post request   //http request is initialised here like this                                               //now here / is equal to pertains to ----   api/users                  ,,because we wrote in the app.use in the server.js
       
 
-    const errors = validationResult(req);                         //we only do this routes that accept data and need va;idation            //and we pass in the request which has the data filled and we pass it through the checkervalidator and that is given to error
-    if(!errors.isEmpty()){                                         //if errors are not empty  //then
-      return res.status(400).json({errors: errors.array() })              //we are returning the status that their is a fault  and with that we are also sending the json data  in which  -- errors: errors.array    so that is a method which gives us an array of errors
+    const errors = validationResult(req);                                     //we only do this routes that accept data and need va;idation            //and we pass in the request which has the data filled and we pass it through the checkervalidator and that is given to error
+    if(!errors.isEmpty()){                                                     //if errors are not empty  //then
+      return res.status(400).json({errors: errors.array() })                          //we are returning the status that their is a fault  and with that we are also sending the json data  in which  -- errors: errors.array    so that is a method which gives us an array of errors
     }
       
 
@@ -92,6 +94,7 @@ router.post('/', [                             //in this [] we put checks on paa
 
 
 
+    
 
 
     //res.send('passed');                                         //this will be send if only their is no error being returned         

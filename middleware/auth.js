@@ -20,12 +20,12 @@ module.exports =function(req, res ,next) {                     //it takes in nex
   }
 
   try{
-    const decoded = jwt.verify(token , config,get('jwtsecret'));       //pass in the token , we have the token but we need to verfy, and it aslo takes in the secret...... onceit gets verified  the user object gets put into decoded
+    const decoded = jwt.verify(token , config.get('jwtsecret'));       //pass in the token , we have the token but we need to verfy, and it aslo takes in the secret...... onceit gets verified  the user object gets put into decoded
 
     req.user =decoded.user;                    //decoded is the entire token payload but we only want the user
-    next();
+    next();                                    //then the user object is put in req and sent to the end point that is the backend/api end point
 
   } catch(err){
     res.status(401).json({msg: ' Token is not valid'});
-  }
-}
+  };
+};
