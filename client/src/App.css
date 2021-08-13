@@ -400,6 +400,7 @@ table th {
   transition: opacity 1000ms ease-in;
 }
 
+
 /* Mobile Styles */
 @media (max-width: 700px) {
   .hide-sm {

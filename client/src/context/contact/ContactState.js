@@ -41,7 +41,8 @@ const ContactState = props => {          //this is our initial state
         type: 'professional'
       }
     ],
-    current: null            //when i click edit the contact we want to edit will be put in this object in state and then we are able to change the contacts info
+    current: null,            //when i click edit the contact we want to edit will be put in this object in state and then we are able to change the contacts info
+    filtered: null                //array of filter contacts which mach with whatever we put in our input
   };
 
 
@@ -49,6 +50,11 @@ const ContactState = props => {          //this is our initial state
 
       //pull out the state  and dispatch from our reducer from our useReducer hook
   const [state, dispatch] = useReducer(contactReducer, initialState);                       //so state allows to access anything in state and dispatch allows to dispatch objects to the reducer     //for usereducer hook this is syntax ----     const [state, dispatch]  =useReducer(reducer, initialState, init)
+
+
+
+
+
 
 
 
@@ -71,14 +77,30 @@ const ContactState = props => {          //this is our initial state
   };
 
   //set current contact
+  const setCurrent =( contact ) => {
+    dispatch({ type: SET_CURRENT, payload: contact });             //so we send the contact that need tos be edited their in the reducer
+  };
+
 
   //cleaar current contact
+  const clearCurrent =() => {
+    dispatch({ type: CLEAR_CURRENT});                            //  we dont need a payload because we want to set the contact to null
+  };
 
   //update contact
+  const updateContact =( contact ) => {
+    dispatch({ type: UPDATE_CONTACT, payload: contact });             //so we send the contact that need tos be updated
+  };
 
   //filter contacts
-
+  const filterContacts =( text ) => {
+    dispatch({ type: FILTER_CONTACTS, payload: text });             //so we send the contact that need tos be updated
+  };
   //clear filter
+  const clearFilter =() => {
+    dispatch({ type: CLEAR_FILTER});                            //  we dont need a payload because we want to set the contact to null
+  };
+
 
 
 
@@ -88,7 +110,14 @@ const ContactState = props => {          //this is our initial state
     value={{                                                //anything we wantto access from other components like state and actions need to go here
       contacts: state.contacts,                                          //we want contacts and that we get from state that we get from usereducer bought in and we have contacts
       addContact,
-      deleteContact                                         //this is how we provide our methods to the all components
+      current: state.current,
+      deleteContact,                                         //this is how we provide our methods to the all components
+      setCurrent,
+      clearCurrent,
+      updateContact,
+      clearFilter,
+      filterContacts,
+      filtered: state.filtered
     }}>
       {props.children}
     </ContactContext.Provider>
