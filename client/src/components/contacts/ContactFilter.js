@@ -1,5 +1,5 @@
 import React, {useContext, useRef, useEffect} from 'react'                          //useref hook , it is like refrences in react....   //it is a way to refrence a dom object .. alternative for forms ..    
-import ContactContext from './contactContext';                                         //so instead of creating a input for our input of the filter, we are going to use s=useref
+import ContactContext from '../../context/contact/contactContext'                                 //so instead of creating a input for our input of the filter, we are going to use s=useref
 
 
 
